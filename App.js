@@ -1,13 +1,12 @@
 import React from "react";
-import { View } from "react-native";
-import Home from "./src/screens/Home";
-import Products from "./src/screens/Products";
+import { NavigationContainer } from "@react-navigation/native";
 import { useFonts } from "expo-font";
+import RootNavigation from "./src/navigation/RootNavigation";
 
 export default function App() {
   const [fontsLoaded] = useFonts({
-    Caveat: require("./assets/Fonts/Caveat-VariableFont_wght.ttf"),
-    Satisfy: require("./assets/Fonts/Satisfy-Regular.ttf"),
+    Caveat: require("./assets/fonts/Caveat-VariableFont_wght.ttf"),
+    Satisfy: require("./assets/fonts/Satisfy-Regular.ttf"),
   });
 
   if (fontsLoaded === false) {
@@ -15,9 +14,8 @@ export default function App() {
   }
 
   return (
-    <View>
-      {/* <Home /> */}
-      <Products category={""} />
-    </View>
+    <NavigationContainer>
+      <RootNavigation />
+    </NavigationContainer>
   );
 }

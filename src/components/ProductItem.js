@@ -1,20 +1,25 @@
 import React from "react";
-import { View, Text, StyleSheet, Image } from "react-native";
+import { View, Text, StyleSheet, Image, Pressable } from "react-native";
 import { colors } from "../theme/colors";
 
-const ProductItem = ({ item }) => {
+const ProductItem = ({ item, navigation }) => {
   return (
-    <View style={styles.container}>
-      <Text style={styles.title}> {item.title} </Text>
-
-      <Image
-        style={styles.image}
-        height={80}
-        width={80}
-        source={{ uri: item.images[0] }}
-        resizeMode="cover"
-      />
-    </View>
+    <Pressable
+      onPress={() => {
+        navigation.navigate("productDetail", { item: item });
+      }}
+    >
+      <View style={styles.container}>
+        <Text style={styles.title}> {item.title} </Text>
+        <Image
+          style={styles.image}
+          height={80}
+          width={80}
+          source={{ uri: item.images[0] }}
+          resizeMode="cover"
+        />
+      </View>
+    </Pressable>
   );
 };
 
@@ -38,7 +43,7 @@ const styles = StyleSheet.create({
     // Text styles
     fontSize: 20,
     marginLeft: 20,
-    color: colors.lightColor
+    color: colors.lightColor,
   },
   image: {
     // Image styles
