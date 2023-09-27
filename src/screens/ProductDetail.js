@@ -9,6 +9,7 @@ import {
 } from "react-native";
 import { useNavigation } from "@react-navigation/native";
 import Header from "../components/Header";
+import Counter from "../components/Counter";
 import { colors } from "../theme/colors";
 import { AntDesign } from "@expo/vector-icons";
 
@@ -32,7 +33,11 @@ const ProductDetail = ({ route, navigation }) => {
         />
         <Text style={styles.price}>Precio: USD{item.price}</Text>
         <Text style={styles.description}>Descripcion: {item.description}</Text>
-        <Pressable style={styles.button}>
+        <Counter />
+        <Pressable
+          style={styles.button}
+          onPress={() => console.log("Agregar al carrito")}
+        >
           <Text style={styles.buttonText}>Agregar al carrito</Text>
         </Pressable>
         <Text style={styles.rating}>Rating: {item.rating}</Text>
@@ -61,10 +66,7 @@ const styles = StyleSheet.create({
   },
   image: {
     // Image styles
-    // marginRight: 10,
-    // borderColor: "black",
     borderWidth: 50,
-    // borderRadius: 20,
   },
   price: {
     // Price styles

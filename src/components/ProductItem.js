@@ -1,16 +1,25 @@
 import React from "react";
 import { View, Text, StyleSheet, Image, Pressable } from "react-native";
+import { useDispatch, useSelector } from "react-redux";
 import { colors } from "../theme/colors";
+import { setProductSelected } from "../redux/slice/homeSlice";
 
 const ProductItem = ({ item, navigation }) => {
+  const dispatch = useDispatch();
+
+  const selectProduct = () => {
+    dispatch(setProductSelected(item));
+    navigation.navigate("productDetail", { item: item });
+  }
+
   return (
     <Pressable
       onPress={() => {
-        navigation.navigate("productDetail", { item: item });
+        selectProduct();
       }}
     >
       <View style={styles.container}>
-        <Text style={styles.title}> {item.title} </Text>
+        <Text style={styles.title}>{item.title}</Text>
         <Image
           style={styles.image}
           height={80}

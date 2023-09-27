@@ -10,9 +10,7 @@ const RootNavigation = () => {
   return (
     <Stack.Navigator
       initialRouteName="home"
-      screenOptions={{
-        headerShown: false,
-      }}
+      screenOptions={{ headerShown: false }}
     >
       <Stack.Screen component={Home} name="home" />
       <Stack.Screen component={Products} name="products" />

@@ -4,26 +4,23 @@ import Search from "../components/Search";
 import Header from "../components/Header";
 import ProductItem from "../components/ProductItem";
 import { useNavigation } from "@react-navigation/native";
-import { products } from "../data/products";
+import { useSelector } from "react-redux";
 import { colors } from "../theme/colors";
 import { AntDesign } from "@expo/vector-icons";
 
 const Products = ({ route, navigation }) => {
-  let categoryProducts;
   const [categoryProd, setCategoryProd] = useState([]);
   const [text, setText] = useState("");
   const { item } = route.params;
 
+  const products = useSelector((state) => state.homeSlice.allProducts)
+  const categoryProducts = useSelector((state) => state.homeSlice.productsFilter)
+
   useEffect(() => {
-    if (item != "" && item != "all") {
-      categoryProducts = products.filter((el) => el.category === item);
-    } else {
-      categoryProducts = products;
-    }
     setCategoryProd(categoryProducts);
 
     if (text) {
-      const titleProduct = products.filter((el) => el.title === text);
+      const titleProduct = products.filter((el) => el.title.toLowerCase() === text.toLowerCase);
       setCategoryProd(titleProduct);
     }
   }, [text, item]);
