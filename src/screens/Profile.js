@@ -10,9 +10,16 @@ import {
 import Header from "../components/Header";
 import { colors } from "../theme/colors";
 import { users } from "../data/users";
+import { useDispatch } from "react-redux";
+import { clearUser } from "../redux/slice/authSlice";
 
 const Profile = () => {
+  const dispatch = useDispatch();
   let user = users[0];
+
+  const userLogout = () => {
+    dispatch(clearUser());
+  };
 
   return (
     <SafeAreaView>
@@ -31,7 +38,10 @@ const Profile = () => {
           style={styles.button}
           onPress={() => console.log("Editar perfil")}
         >
-          <Text style={styles.buttonText}>Editar perfil</Text>
+          <Text style={styles.buttonText}>Editar foto</Text>
+        </Pressable>
+        <Pressable style={styles.button} onPress={() => userLogout()}>
+          <Text style={styles.buttonText}>Logout</Text>
         </Pressable>
       </View>
     </SafeAreaView>
