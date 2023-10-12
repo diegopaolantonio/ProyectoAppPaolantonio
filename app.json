@@ -30,9 +30,15 @@
       [
         "expo-image-picker",
         {
-          "photosPermission": "Se requiere acceso a la galería de fotos"
+          "photosPermission": "Se requiere acceso a la camara"
+        }
+      ],
+      [
+        "expo-location",
+        {
+          "locationAlwaysAndWhenInUsePermission": "Permitir acceder a tu ubicación"
         }
       ]
-    ]
+   ]
   }
 }

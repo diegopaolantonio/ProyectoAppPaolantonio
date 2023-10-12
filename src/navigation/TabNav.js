@@ -1,12 +1,12 @@
 import { createBottomTabNavigator } from "@react-navigation/bottom-tabs";
 import React from "react";
 import Cart from "../screens/Cart";
-import Profile from "../screens/Profile";
 import RootNavigation from "./RootNavigation";
 import { AntDesign } from "@expo/vector-icons";
 import { FontAwesome5 } from "@expo/vector-icons";
 import { MaterialCommunityIcons } from "@expo/vector-icons";
 import { colors } from "../theme/colors";
+import ProfileNav from "./ProfileNav";
 
 const Tab = createBottomTabNavigator();
 
@@ -23,8 +23,8 @@ const TabNav = () => {
             />
           ),
         }}
-        component={Profile}
-        name="profile"
+        component={ProfileNav}
+        name="profileNav"
       />
       <Tab.Screen
         options={{

@@ -1,5 +1,5 @@
 import React from "react";
-import { useGetCategoriesQuery, useGetProductsQuery } from "../services/daAPI";
+import { useGetCategoriesQuery, useGetProductsQuery } from "../services/daApi";
 import { View, FlatList, StyleSheet, ActivityIndicator } from "react-native";
 import CategoryItem from "./CategoryItem";
 import { colors } from "../theme/colors";
