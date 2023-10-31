@@ -7,14 +7,16 @@ import {
   TextInput,
 } from "react-native";
 import { colors } from "../theme/colors";
-import { firebaseAuth } from "../firebse/firebaseAuth";
+import { firebaseAuth } from "../firebase/firebaseAuth";
 import { createUserWithEmailAndPassword } from "firebase/auth";
 import { useNavigation } from "@react-navigation/native";
-import Header from "../components/Header"
+import Header from "../components/Header";
+import { usePutDbMutation } from "../services/daApi";
 
 const Login = ({ navigation }) => {
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const [putDb, result] = usePutDbMutation();
 
   const handleRegister = async () => {
     try {
@@ -23,6 +25,17 @@ const Login = ({ navigation }) => {
         email,
         password
       );
+
+      let user = {
+        id: response.user.uid,
+        nombre: "",
+        edad: 0,
+        profesion: "",
+        ciudad: "",
+        pais: "",
+      };
+
+      const resultado = await putDb(user);
 
       navigation.navigate("login");
     } catch (error) {

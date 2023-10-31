@@ -10,7 +10,7 @@ const ProductItem = ({ item, navigation }) => {
   const selectProduct = () => {
     dispatch(setProductSelected(item));
     navigation.navigate("productDetail", { item: item });
-  }
+  };
 
   return (
     <Pressable

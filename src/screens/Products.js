@@ -13,14 +13,18 @@ const Products = ({ route, navigation }) => {
   const [text, setText] = useState("");
   const { item } = route.params;
 
-  const products = useSelector((state) => state.homeSlice.allProducts)
-  const categoryProducts = useSelector((state) => state.homeSlice.productsFilter)
+  const products = useSelector((state) => state.homeSlice.allProducts);
+  const categoryProducts = useSelector(
+    (state) => state.homeSlice.productsFilter
+  );
 
   useEffect(() => {
     setCategoryProd(categoryProducts);
 
     if (text) {
-      const titleProduct = products.filter((el) => el.title.toLowerCase() === text.toLowerCase);
+      const titleProduct = products.filter(
+        (el) => el.title.toLowerCase() === text.toLowerCase
+      );
       setCategoryProd(titleProduct);
     }
   }, [text, item]);

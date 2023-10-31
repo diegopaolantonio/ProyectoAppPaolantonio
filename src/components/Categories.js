@@ -28,7 +28,7 @@ const Categories = ({ navigation }) => {
 
   return (
     <View>
-      {(isLoadingCategories || isLoadingProducts) ? (
+      {isLoadingCategories || isLoadingProducts ? (
         <View style={styles.indicator}>
           <ActivityIndicator size="small" color="blue" />
         </View>
@@ -53,10 +53,10 @@ const styles = StyleSheet.create({
     backgroundColor: colors.heavyGreen,
     paddingTop: 20,
   },
-  indicator:{
-      flex: 1,
-      justifyContent: "center",
-      alignContent: "center",
+  indicator: {
+    flex: 1,
+    justifyContent: "center",
+    alignContent: "center",
   },
 });
 

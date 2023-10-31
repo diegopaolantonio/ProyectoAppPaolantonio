@@ -1,4 +1,4 @@
-import React from "react";
+import React, { useState } from "react";
 import {
   Image,
   Pressable,
@@ -6,29 +6,38 @@ import {
   StyleSheet,
   Text,
   View,
+  Alert,
 } from "react-native";
 import Header from "../components/Header";
 import { colors } from "../theme/colors";
-import { users } from "../data/users";
-import { useDispatch } from "react-redux";
+import { useDispatch, useSelector } from "react-redux";
 import { clearUser } from "../redux/slice/authSlice";
 import * as ImagePicker from "expo-image-picker";
-import { usePutImageMutation } from "../services/daApi";
-import { useGetImageQuery } from "../services/daApi";
+import { useGetImageQuery, usePutImageMutation } from "../services/daApi";
 import * as Location from "expo-location";
-import { useState } from "react";
 import { useNavigation } from "@react-navigation/native";
 
 const Profile = ({ navigation }) => {
+  const dispatch = useDispatch();
   const [putImage, result] = usePutImageMutation();
   const [location, setLocation] = useState(null);
-  const { data, isLoading, error, isError, refetch } = useGetImageQuery();
+  const {
+    data: image,
+    isLoading,
+    error,
+    isError,
+    refetch,
+  } = useGetImageQuery();
 
-  const dispatch = useDispatch();
-  let user = users[0];
+  const uid = useSelector((state) => state.authSlice.uid);
+  const userData = useSelector((state) => state.authSlice.userData);
 
   const defaultProfileImage =
     "https://cdn.pixabay.com/photo/2012/04/13/21/07/user-33638_1280.png";
+
+  const editUserData = () => {
+    navigation.navigate("updateUserData", { userData: userData });
+  };
 
   const userLogout = () => {
     dispatch(clearUser());
@@ -90,6 +99,28 @@ const Profile = ({ navigation }) => {
     navigation.navigate("mapLoc", { location });
   };
 
+  const changeProfileImage = () => {
+    Alert.alert(
+      "Cambiar foto de perfil",
+      "Seleccione de donde va a tomar la foto",
+      [
+        {
+          text: "Cancel",
+          onPress: () => console.log("Cancelar"),
+          style: "cancel",
+        },
+        {
+          text: "Camara",
+          onPress: () => pickImage(),
+        },
+        {
+          text: "Galeria",
+          onPress: () => chooseImageFromGallery(),
+        },
+      ]
+    );
+  };
+
   return (
     <SafeAreaView>
       <Header title="Perfil" />
@@ -97,27 +128,29 @@ const Profile = ({ navigation }) => {
         <Image
           style={styles.imagen}
           source={{
-            uri: data ? data.image : defaultProfileImage,
+            uri: image ? image.image : defaultProfileImage,
           }}
         />
-        <Text style={styles.text}>Nombre: {user.nombre}</Text>
-        <Text style={styles.text}>Pais: {user.pais}</Text>
-        <Text style={styles.text}>Edad: {user.edad}</Text>
+        {userData === null ? (
+          <>
+            <Text style={styles.text}>Nombre:</Text>
+            <Text style={styles.text}>Pais:</Text>
+            <Text style={styles.text}>Edad:</Text>
+          </>
+        ) : (
+          <>
+            <Text style={styles.text}>Nombre: {userData.nombre}</Text>
+            <Text style={styles.text}>Pais: {userData.pais}</Text>
+            <Text style={styles.text}>Edad: {userData.edad}</Text>
+          </>
+        )}
         <Pressable
           style={styles.button}
           onPress={() => {
-            pickImage();
+            changeProfileImage();
           }}
         >
-          <Text style={styles.buttonText}>Tomar foto con camara</Text>
-        </Pressable>
-        <Pressable
-          style={styles.button}
-          onPress={() => {
-            chooseImageFromGallery();
-          }}
-        >
-          <Text style={styles.buttonText}>Galeria de fotos</Text>
+          <Text style={styles.buttonText}>Cambiar foto de perfil</Text>
         </Pressable>
         <Pressable
           style={styles.button}
@@ -126,6 +159,14 @@ const Profile = ({ navigation }) => {
           }}
         >
           <Text style={styles.buttonText}>Posicion geografica</Text>
+        </Pressable>
+        <Pressable
+          style={styles.button}
+          onPress={() => {
+            editUserData();
+          }}
+        >
+          <Text style={styles.buttonText}>Editar Perfil</Text>
         </Pressable>
         <Pressable style={styles.button} onPress={() => userLogout()}>
           <Text style={styles.buttonText}>Logout</Text>

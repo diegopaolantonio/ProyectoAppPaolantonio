@@ -1,5 +1,5 @@
 import React from "react";
-import { Text, StyleSheet, Pressable } from "react-native"
+import { Text, StyleSheet, Pressable } from "react-native";
 import { useDispatch, useSelector } from "react-redux";
 import { setCategorySelected } from "../redux/slice/homeSlice";
 import { colors } from "../theme/colors";
@@ -10,7 +10,7 @@ const CategoryItem = ({ item, navigation }) => {
   const selectCategory = () => {
     dispatch(setCategorySelected(item));
     navigation.navigate("products", { item: item });
-  }
+  };
   return (
     <Pressable
       onPress={() => {

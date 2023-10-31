@@ -7,17 +7,24 @@ import {
   TextInput,
 } from "react-native";
 import { colors } from "../theme/colors";
-import { firebaseAuth } from "../firebse/firebaseAuth";
+import { firebaseAuth } from "../firebase/firebaseAuth";
 import { signInWithEmailAndPassword } from "firebase/auth";
 import { useDispatch } from "react-redux";
-import { setUser, setIdToken } from "../redux/slice/authSlice";
+import {
+  setUser,
+  setIdToken,
+  setUid,
+  setUserData,
+} from "../redux/slice/authSlice";
 import { useNavigation } from "@react-navigation/native";
-import Header from "../components/Header"
+import Header from "../components/Header";
+import { useGetDbQuery } from "../services/daApi";
 
 const Login = ({ navigation }) => {
   const dispatch = useDispatch();
   const [email, setEmail] = useState("");
   const [password, setPassword] = useState("");
+  const { data, isLoading, error, isError, refetch } = useGetDbQuery();
 
   const handleLogin = async () => {
     try {
@@ -27,8 +34,12 @@ const Login = ({ navigation }) => {
         password
       );
 
+      const userData = data[response.user.uid];
+
       dispatch(setUser(response.user.email));
+      dispatch(setUid(response.user.uid));
       dispatch(setIdToken(response._tokenResponse.idToken));
+      dispatch(setUserData(userData));
     } catch (error) {
       console.log(error);
     }

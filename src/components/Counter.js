@@ -21,16 +21,23 @@ const Counter = () => {
   return (
     <View style={styles.container}>
       <View style={styles.containerIncrement}>
-      <Pressable style={styles.buttonAdd} onPress={() => dispatch(decrement())}>
-        <Text>-</Text>
-      </Pressable>
-      <Text style={styles.buttonAdd}>{count}</Text>
-      <Pressable style={styles.buttonAdd} onPress={() => dispatch(increment())}>
-        <Text>+</Text>
-      </Pressable>
+        <Pressable
+          style={styles.buttonAdd}
+          onPress={() => dispatch(decrement())}
+        >
+          <Text>-</Text>
+        </Pressable>
+        <Text style={styles.buttonAdd}>{count}</Text>
+        <Pressable
+          style={styles.buttonAdd}
+          onPress={() => dispatch(increment())}
+        >
+          <Text>+</Text>
+        </Pressable>
       </View>
       <View>
-        <TextInput style={styles.button}
+        <TextInput
+          style={styles.button}
           placeholder="Cantidad"
           value={inputToAdd}
           onChangeText={(text) => setInputToAdd(Number(text))}
@@ -47,9 +54,7 @@ const Counter = () => {
 };
 
 const styles = StyleSheet.create({
-  container: {
-
-  },
+  container: {},
   containerIncrement: {
     marginTop: 10,
     flexDirection: "row",
