@@ -43,30 +43,35 @@ const UpdateUserData = ({ navigation, route }) => {
     <SafeAreaView>
       <Header title="Editar Perfil" navigation={navigation} />
       <View style={styles.container}>
+        <Text>Nombre</Text>
         <TextInput
           onChangeText={(value) => setNombre(value)}
           value={nombre}
           style={styles.text}
           placeholder="Ingrese su nombre completo"
         />
+        <Text>Profesion</Text>
         <TextInput
           onChangeText={(value) => setProfesion(value)}
           value={profesion}
           style={styles.text}
           placeholder="Ingrese su profesion"
         />
+        <Text>Ciudad</Text>
         <TextInput
           onChangeText={(value) => setCiudad(value)}
           value={ciudad}
           style={styles.text}
           placeholder="Ingrese su cuidad"
         />
+        <Text>Pais</Text>
         <TextInput
           onChangeText={(value) => setPais(value)}
           value={pais}
           style={styles.text}
           placeholder="Ingrese su pais"
         />
+        <Text>Edad</Text>
         <TextInput
           onChangeText={(value) => setEdad(value)}
           value={edad}
@@ -93,7 +98,7 @@ const styles = StyleSheet.create({
     width: "78%",
     padding: 10,
     margin: 10,
-    fontFamily: "Caveat",
+    // fontFamily: "Caveat",
 
     // Border styles
     borderWidth: 2,
@@ -101,6 +106,7 @@ const styles = StyleSheet.create({
     borderColor: colors.heavyGreen,
 
     // Text styles
+    textAlign: "center",
     fontSize: 20,
   },
   button: {
