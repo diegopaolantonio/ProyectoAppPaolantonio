@@ -27,10 +27,10 @@ export const daApi = createApi({
 
     // ENVIA LA IMAGEN A LA BD
     putImage: builder.mutation({
-      query: (image) => ({
-        url: "image.json",
+      query: (profileImage) => ({
+        url: `image/${profileImage.id}.json`,
         method: "PUT",
-        body: image,
+        body: profileImage,
       }),
     }),
 
